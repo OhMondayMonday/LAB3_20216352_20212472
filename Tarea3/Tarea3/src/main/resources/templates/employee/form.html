@@ -1,0 +1,20 @@
+<!-- templates/employee/form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head><title>Formulario</title></head>
+    <body>
+        <div th:replace="fragments/menu :: *"></div>
+
+        <form th:action="@{/empleados/guardar}" method="post" th:object="${empleado}">
+            <input type="hidden" th:field="*{id}" />
+            <label>Nombre:</label><input type="text" th:field="*{nombre}"/><br/>
+            <label>Apellido:</label><input type="text" th:field="*{apellido}"/><br/>
+            <label>Puesto:</label><input type="text" th:field="*{puesto}"/><br/>
+            <label>Departamento:</label><input type="text" th:field="*{departamento}"/><br/>
+            <label>Ciudad:</label><input type="text" th:field="*{ciudad}"/><br/>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <a th:href="@{/empleados}">Volver</a>
+    </body>
+</html>
