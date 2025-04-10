@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragmentos Thymeleaf</title>
+</head>
+<body>
+
+<!-- Fragmento del menú -->
+<div th:fragment="menu">
+    <nav>
+        <ul>
+            <li><a th:href="@{/empleados}">Empleados</a></li>
+            <li><a th:href="@{/historial}">Historial</a></li>
+            <li><a th:href="@{/reporte-visual}">Reporte Visual</a></li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
