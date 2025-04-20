@@ -1,15 +1,14 @@
 package com.example.tarea3.services;
 
 import com.example.tarea3.models.Employee;
-import com.example.tarea3.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class EmployeeService {
-    private final EmployeeRepository repo;
+    private final DepartamentoRepository repo;
 
-    public EmployeeService(EmployeeRepository repo) {
+    public EmployeeService(DepartamentoRepository repo) {
         this.repo = repo;
     }
 

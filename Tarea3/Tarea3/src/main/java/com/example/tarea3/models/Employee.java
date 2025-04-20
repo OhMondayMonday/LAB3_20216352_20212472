@@ -2,78 +2,143 @@ package com.example.tarea3.models;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "employees") // Tabla real de tu BD
+@Table(name = "employees")
 public class Employee {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
-    private Integer id;
+    private Integer employeeId;
 
     @Column(name = "first_name")
-    private String nombre;
+    private String firstName;
 
-    @Column(name = "last_name")
-    private String apellido;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
-    @Column(name = "job_id")
-    private String puesto;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-    @Column(name = "department_id")
-    private Integer departamento;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-    @Transient
-    private String ciudad; // No existe en la tabla, así que se ignora
+    @Column(name = "hire_date", nullable = false)
+    private LocalDateTime hireDate;
 
-    public Employee() {}
 
-    // Getters y setters
+    @Column(name = "salary")
+    private BigDecimal salary;
 
-    public Integer getId() {
-        return id;
+    @Column(name = "commission_pct")
+    private BigDecimal commissionPct;
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Employee manager;
+
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "job_id")
+    private Job job;
+
+
+    // Getters y Setters
+
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getPuesto() {
-        return puesto;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPuesto(String puesto) {
-        this.puesto = puesto;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Integer getDepartamento() {
-        return departamento;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setDepartamento(Integer departamento) {
-        this.departamento = departamento;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public LocalDateTime getHireDate() {
+        return hireDate;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setHireDate(LocalDateTime hireDate) {
+        this.hireDate = hireDate;
     }
+
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    public BigDecimal getCommissionPct() {
+        return commissionPct;
+    }
+
+    public void setCommissionPct(BigDecimal commissionPct) {
+        this.commissionPct = commissionPct;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+
 }

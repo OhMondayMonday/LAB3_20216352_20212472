@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerentes con Experiencia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 mb-4 border-bottom">Gerentes con más de 5 años de experiencia</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-warning">
+                <tr>
+                    <th>Departamento</th>
+                    <th>Gerente</th>
+                    <th>Salario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="g : ${gerentes}">
+                    <td th:text="${g.nombreDepartamento}"></td>
+                    <td th:text="${g.nombreGerente}"></td>
+                    <td th:text="${g.salario}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a th:href="@{/search}" class="btn btn-secondary mt-3">← Volver al índice</a>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

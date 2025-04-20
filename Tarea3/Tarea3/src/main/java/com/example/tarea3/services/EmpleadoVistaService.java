@@ -1,6 +1,5 @@
 package com.example.tarea3.services;
 
-import com.example.tarea3.models.EmpleadoVista;
 import com.example.tarea3.repositories.EmpleadoVistaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
