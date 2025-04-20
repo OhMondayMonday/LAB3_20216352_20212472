@@ -1,4 +1,4 @@
-<!-- templates/employee/form.html -->
+<!-- Para crear y editar -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -8,41 +8,50 @@
 </head>
 <body>
 <div class="container mt-4">
+
+    <!-- Menú de navegación -->
     <div th:replace="fragments/menu :: menu"></div>
 
-    <div class="card">
+    <!-- Tarjeta del formulario -->
+    <div class="card shadow">
         <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Formulario de Empleado</h5>
+            <h4 class="mb-0">[[${empleado.id} != null ? 'Editar Empleado' : 'Nuevo Empleado']]</h4>
         </div>
         <div class="card-body">
             <form th:action="@{/empleados/guardar}" th:object="${empleado}" method="post">
                 <input type="hidden" th:field="*{id}"/>
 
-                <div class="mb-3">
-                    <label>Nombre</label>
-                    <input type="text" th:field="*{nombre}" class="form-control"/>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" th:field="*{nombre}" id="nombre" class="form-control" placeholder="Ej. Juan" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" th:field="*{apellido}" id="apellido" class="form-control" placeholder="Ej. Pérez" required>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Apellido</label>
-                    <input type="text" th:field="*{apellido}" class="form-control"/>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="puesto" class="form-label">Puesto</label>
+                        <input type="text" th:field="*{puesto}" id="puesto" class="form-control" placeholder="Ej. IT_PROG" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="departamento" class="form-label">Departamento (ID)</label>
+                        <input type="number" th:field="*{departamento}" id="departamento" class="form-control" placeholder="Ej. 60" required>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label>Puesto</label>
-                    <input type="text" th:field="*{puesto}" class="form-control"/>
+                <!-- Botones -->
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/empleados}" class="btn btn-secondary">Volver</a>
+                    <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
-
-                <div class="mb-3">
-                    <label>Departamento (ID)</label>
-                    <input type="number" th:field="*{departamento}" class="form-control"/>
-                </div>
-
-                <button type="submit" class="btn btn-success">Guardar</button>
-                <a th:href="@{/empleados}" class="btn btn-secondary">Volver</a>
             </form>
         </div>
     </div>
+
 </div>
 </body>
 </html>
