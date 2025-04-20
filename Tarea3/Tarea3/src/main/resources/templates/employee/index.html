@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head><title>Empleados</title></head>
   <body>
-    <div th:replace="fragments/menu :: *"></div>
+  <div th:replace="fragments/menu :: menu"></div>
 
     <form method="get" th:action="@{/empleados}">
       <input type="text" name="filtro" placeholder="Buscar..." th:value="${filtro}">
