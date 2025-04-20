@@ -1,10 +1,14 @@
 package com.example.tarea3.models;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "job_history")
 public class JobHistory {
     @EmbeddedId
-    private JobHistoryId id;
+    private Integer id;
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
@@ -17,11 +21,11 @@ public class JobHistory {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    public JobHistoryId getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(JobHistoryId id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

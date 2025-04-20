@@ -1,6 +1,6 @@
 package com.example.tarea3.controllers;
-import com.example.tarea3.model.Employee;
-import com.example.tarea3.repository.EmployeeRepository;
+import com.example.tarea3.models.Employee;
+import com.example.tarea3.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

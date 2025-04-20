@@ -11,7 +11,7 @@ public class Job {
 
     @Id
     @Column(name = "job_id")
-    private String jobId;
+    private Integer jobId;
 
     @Column(name = "job_title")
     private String jobTitle;
@@ -23,7 +23,7 @@ public class Job {
     private Integer maxSalary;
 
     // Getters
-    public String getJobId() {
+    public Integer getJobId() {
         return jobId;
     }
 
@@ -41,7 +41,7 @@ public class Job {
 
 
     // Setters
-    public void setJobId(String jobId) {
+    public void setJobId(Integer jobId) {
         this.jobId = jobId;
     }
 
