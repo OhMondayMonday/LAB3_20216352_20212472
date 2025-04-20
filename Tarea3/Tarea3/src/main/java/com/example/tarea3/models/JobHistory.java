@@ -7,25 +7,26 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "job_history")
 public class JobHistory {
+
     @EmbeddedId
-    private Integer id;
+    private JobHistoryId id;
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
     @ManyToOne
-    @JoinColumn(name = "job_id")
+    @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", nullable = true)
     private Department department;
 
-    public Integer getId() {
+    public JobHistoryId getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(JobHistoryId id) {
         this.id = id;
     }
 
