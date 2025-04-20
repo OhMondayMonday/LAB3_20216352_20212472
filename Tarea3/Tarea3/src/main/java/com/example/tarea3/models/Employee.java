@@ -3,28 +3,37 @@ package com.example.tarea3.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "employees") // Tabla real de tu BD
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "employee_id")
+    private Integer id;
 
+    @Column(name = "first_name")
     private String nombre;
+
+    @Column(name = "last_name")
     private String apellido;
+
+    @Column(name = "job_id")
     private String puesto;
-    private String departamento;
-    private String ciudad;
-    private String pais;
-    private Double salario;
-    private int experiencia; // años de experiencia
+
+    @Column(name = "department_id")
+    private Integer departamento;
+
+    @Transient
+    private String ciudad; // No existe en la tabla, así que se ignora
 
     public Employee() {}
 
-    public Long getId() {
+    // Getters y setters
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,11 +61,11 @@ public class Employee {
         this.puesto = puesto;
     }
 
-    public String getDepartamento() {
+    public Integer getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(String departamento) {
+    public void setDepartamento(Integer departamento) {
         this.departamento = departamento;
     }
 
@@ -66,29 +75,5 @@ public class Employee {
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public Double getSalario() {
-        return salario;
-    }
-
-    public void setSalario(Double salario) {
-        this.salario = salario;
-    }
-
-    public int getExperiencia() {
-        return experiencia;
-    }
-
-    public void setExperiencia(int experiencia) {
-        this.experiencia = experiencia;
     }
 }

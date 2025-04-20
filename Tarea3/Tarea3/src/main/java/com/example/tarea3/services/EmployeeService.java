@@ -14,14 +14,22 @@ public class EmployeeService {
     }
 
     public List<Employee> listar(String filtro) {
-        if (filtro == null || filtro.isEmpty()) return repo.findAll();
-        return repo.findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCaseOrPuestoContainingIgnoreCaseOrDepartamentoContainingIgnoreCaseOrCiudadContainingIgnoreCase(
-                filtro, filtro, filtro, filtro, filtro);
+        if (filtro == null || filtro.isEmpty()) {
+            return repo.findAll();
+        }
+        return repo.findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCaseOrPuestoContainingIgnoreCase(
+                filtro, filtro, filtro);
     }
 
-    public void guardar(Employee e) { repo.save(e); }
+    public void guardar(Employee e) {
+        repo.save(e);
+    }
 
-    public Employee buscarPorId(Long id) { return repo.findById(id).orElse(null); }
+    public Employee buscarPorId(Integer id) {
+        return repo.findById(id).orElse(null);
+    }
 
-    public void eliminar(Long id) { repo.deleteById(id); }
+    public void eliminar(Integer id) {
+        repo.deleteById(id);
+    }
 }
