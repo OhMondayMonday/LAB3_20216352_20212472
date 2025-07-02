@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title != null} ? ${title} : 'Sistema de Gestión Empresarial'">Sistema de Gestión Empresarial</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/custom-styles.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">
+                <i class="fas fa-building me-2"></i>
+                Sistema Empresarial
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i>Empleados
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/employees}">
+                                <i class="fas fa-list me-2"></i>Lista de Empleados
+                            </a></li>
+                            <li><a class="dropdown-item" th:href="@{/employees/create}">
+                                <i class="fas fa-user-plus me-2"></i>Nuevo Empleado
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/history}">
+                            <i class="fas fa-history me-1"></i>Historial
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-chart-line me-1"></i>Reportes
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/reports}">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard de Reportes
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/reports/high-salary-employees}">
+                                <i class="fas fa-dollar-sign me-2"></i>Salarios Altos
+                            </a></li>
+                            <li><a class="dropdown-item" th:href="@{/reports/departments-by-city}">
+                                <i class="fas fa-map-marker-alt me-2"></i>Departamentos por Ciudad
+                            </a></li>
+                            <li><a class="dropdown-item" th:href="@{/reports/experienced-managers}">
+                                <i class="fas fa-user-tie me-2"></i>Gerentes Experimentados
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <span class="navbar-text me-3">
+                        <i class="fas fa-clock me-1"></i>
+                        <span id="current-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Messages -->
+    <div th:fragment="alerts" class="container mt-3">
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div th:if="${info}" class="alert alert-info alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            <span th:text="${info}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div th:if="${warning}" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            <span th:text="${warning}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:fragment="footer" class="bg-dark text-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-building me-2"></i>Sistema de Gestión Empresarial</h5>
+                    <p class="mb-0">Administración eficiente de recursos humanos</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">© 2024 - Todos los derechos reservados</p>
+                    <small class="text-muted">Versión 2.0 - Mejorado</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <div th:fragment="scripts">
+        <!-- Bootstrap 5 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom Scripts -->
+        <script th:src="@{/js/custom-scripts.js}"></script>
+        
+        <script>
+            // Update current time
+            function updateTime() {
+                const now = new Date();
+                document.getElementById('current-time').textContent = now.toLocaleTimeString();
+            }
+            setInterval(updateTime, 1000);
+            updateTime();
+
+            // Auto-hide alerts after 5 seconds
+            setTimeout(function() {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                });
+            }, 5000);
+        </script>
+    </div>
+</body>
+</html>

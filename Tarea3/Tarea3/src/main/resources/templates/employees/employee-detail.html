@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base-layout :: head}">
+    <title>Detalle del Empleado - Sistema de Gestión</title>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <div th:replace="~{layout/base-layout :: navbar}"></div>
+    
+    <!-- Alerts -->
+    <div th:replace="~{layout/base-layout :: alerts}"></div>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h2 mb-0">
+                            <i class="fas fa-user me-2 text-primary"></i>
+                            Detalle del Empleado
+                        </h1>
+                        <p class="text-muted mb-0">Información completa del empleado</p>
+                    </div>
+                    <div>
+                        <a th:href="@{'/employees/edit/' + ${employee.employeeId}}" class="btn btn-warning me-2">
+                            <i class="fas fa-edit me-2"></i>Editar
+                        </a>
+                        <a th:href="@{/employees}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Volver a Lista
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Detail -->
+        <div class="row">
+            <!-- Employee Information Card -->
+            <div class="col-lg-8 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-primary text-white py-3">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-circle bg-white text-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                 style="width: 60px; height: 60px; font-size: 24px; font-weight: bold;">
+                                <span th:text="${employee.firstName != null && !employee.firstName.isEmpty() ? employee.firstName.substring(0,1).toUpperCase() : 'U'}">U</span>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-1" th:text="${employee.firstName + ' ' + employee.lastName}">Nombre Completo</h5>
+                                <p class="card-text mb-0">
+                                    <i class="fas fa-id-badge me-1"></i>
+                                    ID: <span th:text="${employee.employeeId}">001</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Personal Information -->
+                        <div class="mb-4">
+                            <h6 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="fas fa-user me-2"></i>Información Personal
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Nombre:</label>
+                                        <div class="fw-semibold" th:text="${employee.firstName}">Nombre</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Apellido:</label>
+                                        <div class="fw-semibold" th:text="${employee.lastName}">Apellido</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="mb-4">
+                            <h6 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="fas fa-envelope me-2"></i>Información de Contacto
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Email:</label>
+                                        <div class="fw-semibold">
+                                            <a th:href="'mailto:' + ${employee.email}" 
+                                               th:text="${employee.email}" 
+                                               class="text-decoration-none">email@example.com</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Teléfono:</label>
+                                        <div class="fw-semibold" th:text="${employee.phoneNumber ?: 'No especificado'}">Teléfono</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Employment Information -->
+                        <div class="mb-4">
+                            <h6 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="fas fa-briefcase me-2"></i>Información Laboral
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Fecha de Contratación:</label>
+                                        <div class="fw-semibold" th:text="${#temporals.format(employee.hireDate, 'dd/MM/yyyy HH:mm')}">01/01/2024</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Puesto de Trabajo:</label>
+                                        <div>
+                                            <span th:if="${employee.job != null}" 
+                                                  class="badge bg-secondary fs-6" 
+                                                  th:text="${employee.job.jobTitle}">Puesto</span>
+                                            <span th:unless="${employee.job != null}" 
+                                                  class="text-muted">No asignado</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Departamento:</label>
+                                        <div class="fw-semibold" th:text="${employee.department?.departmentName ?: 'No asignado'}">Departamento</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Gerente:</label>
+                                        <div class="fw-semibold" th:text="${employee.manager != null ? employee.manager.firstName + ' ' + employee.manager.lastName : 'Sin gerente'}">Gerente</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Salary Information -->
+                        <div class="mb-0">
+                            <h6 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="fas fa-dollar-sign me-2"></i>Información Salarial
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Salario:</label>
+                                        <div class="fw-semibold text-success fs-5" 
+                                             th:text="${employee.salary != null ? '$' + #numbers.formatDecimal(employee.salary, 0, 2) : 'No especificado'}">$0.00</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted small">Comisión:</label>
+                                        <div class="fw-semibold" 
+                                             th:text="${employee.commissionPct != null ? employee.commissionPct + '%' : 'Sin comisión'}">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Stats -->
+            <div class="col-lg-4">
+                <!-- Quick Actions Card -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="card-title mb-0">
+                            <i class="fas fa-bolt me-2 text-warning"></i>
+                            Acciones Rápidas
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a th:href="@{'/employees/edit/' + ${employee.employeeId}}" class="btn btn-warning">
+                                <i class="fas fa-edit me-2"></i>Editar Empleado
+                            </a>
+                            <a th:href="@{'/employees/delete/' + ${employee.employeeId}}" 
+                               class="btn btn-outline-danger"
+                               onclick="return confirm('¿Estás seguro de que quieres eliminar este empleado?')">
+                                <i class="fas fa-trash me-2"></i>Eliminar Empleado
+                            </a>
+                            <hr>
+                            <a th:href="@{/employees}" class="btn btn-outline-primary">
+                                <i class="fas fa-list me-2"></i>Ver Todos los Empleados
+                            </a>
+                            <a th:href="@{/employees/create}" class="btn btn-outline-success">
+                                <i class="fas fa-user-plus me-2"></i>Crear Nuevo Empleado
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Stats Card -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="card-title mb-0">
+                            <i class="fas fa-chart-line me-2 text-info"></i>
+                            Estadísticas
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Tiempo en la empresa:</span>
+                                <span class="fw-semibold" th:text="${#temporals.until(employee.hireDate, #temporals.createNow(), 'DAYS')} + ' días'">0 días</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Estado:</span>
+                                <span class="badge bg-success">Activo</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3" th:if="${employee.job != null}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Categoría:</span>
+                                <span class="fw-semibold" th:text="${employee.job.jobTitle}">Puesto</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-0" th:if="${employee.department != null}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">División:</span>
+                                <span class="fw-semibold" th:text="${employee.department.departmentName}">Departamento</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{layout/base-layout :: footer}"></div>
+
+    <!-- Scripts -->
+    <div th:replace="~{layout/base-layout :: scripts}"></div>
+
+    <style>
+        .info-item {
+            margin-bottom: 1rem;
+        }
+        
+        .info-item label {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .avatar-circle {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</body>
+</html>

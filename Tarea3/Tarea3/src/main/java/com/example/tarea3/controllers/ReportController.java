@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/reports")
-public class SearchController {
+public class ReportController {
 
     @Autowired
     private ReportService reportService;

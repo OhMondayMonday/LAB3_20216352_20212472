@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Sistema de Gestión</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <nav th:fragment="menu" style="background-color: #f0f0f0; padding: 10px;">
+        <a th:href="@{/employee/list}" style="margin-right: 20px;">Empleados</a>
+        <a th:href="@{/employee/create}" style="margin-right: 20px;">Crear Empleado</a>
+        <a th:href="@{/history}" style="margin-right: 20px;">Historial</a>
+    </nav>
+<hr/>
+
+<div th:fragment="scripts">
+    <script th:src="@{/js/script.js}"></script>
+</div>
+</body>
+</html>

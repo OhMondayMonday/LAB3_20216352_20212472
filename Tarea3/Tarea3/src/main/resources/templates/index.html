@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"><meta charset="UTF-8"></head>
+<body class="bg-light">
+<!-- Menú de navegación desde fragmentos -->
+<div th:replace="~{fragments :: menu}"></div>
+
+<!-- Contenido principal -->
+<div class="container mt-4">
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenido al Sistema de Gestión</h1>
+        <p class="lead">Administra la información de tus empleados de manera eficiente</p>
+        <hr class="my-4">
+        <p>Selecciona una de las siguientes opciones:</p>
+    </div>
+
+    <!-- Tarjetas de acceso principal -->
+    <div class="row mb-4">
+        <!-- Tarjeta de Empleados -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Empleados</h5>
+                    <p class="card-text">Gestiona la información de todos los empleados.</p>
+                    <a th:href="@{/employee/list}" class="btn btn-primary">Acceder</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Historial -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Historial</h5>
+                    <p class="card-text">Consulta el historial de los empleados.</p>
+                    <a th:href="@{/history}" class="btn btn-success">Ver Historial</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Reportes -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Reportes</h5>
+                    <p class="card-text">Genera reportes visuales de datos importantes.</p>
+                    <a th:href="@{/search}" class="btn btn-info">Ver Reportes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accesos rápidos -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Acciones Rápidas
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a th:href="@{/employee/create}" class="btn btn-sm btn-outline-primary">Crear nuevo empleado</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a th:href="@{/employee/list}" class="btn btn-sm btn-outline-secondary">Listar empleados</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a th:href="@{/history}" class="btn btn-sm btn-outline-success">Ver historial</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a th:href="@{/search}" class="btn btn-sm btn-outline-info">Consultar reportes</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts desde fragmentos -->
+<div th:replace="~{fragments :: scripts}"></div>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Bootstrap JS (si no está incluido en los fragmentos) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

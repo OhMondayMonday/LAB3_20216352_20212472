@@ -21,6 +21,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findBySalaryGreaterThan(double salario);
 
-
+    List<Employee> findByManagerEmployeeId(Integer managerId);
 
 }

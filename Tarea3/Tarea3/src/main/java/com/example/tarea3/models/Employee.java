@@ -1,6 +1,7 @@
 package com.example.tarea3.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,41 +15,62 @@ public class Employee {
     @Column(name = "employee_id")
     private Integer employeeId;
 
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotBlank(message = "El apellido es obligatorio")
+    @Size(min = 2, max = 50, message = "El apellido debe tener entre 2 y 50 caracteres")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @NotBlank(message = "El email es obligatorio")
+    @Email(message = "El formato del email no es válido")
+    @Size(max = 100, message = "El email no puede exceder 100 caracteres")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Pattern(regexp = "^[+]?[1-9][\\d\\s\\-\\(\\)]{0,20}$", message = "El formato del teléfono no es válido")
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @NotNull(message = "La fecha de contratación es obligatoria")
+    @PastOrPresent(message = "La fecha de contratación no puede ser futura")
     @Column(name = "hire_date", nullable = false)
     private LocalDateTime hireDate;
 
-
+    @DecimalMin(value = "0.0", inclusive = false, message = "El salario debe ser mayor a 0")
+    @DecimalMax(value = "999999.99", message = "El salario no puede exceder $999,999.99")
     @Column(name = "salary")
     private BigDecimal salary;
 
+    @DecimalMin(value = "0.0", message = "La comisión no puede ser negativa")
+    @DecimalMax(value = "100.0", message = "La comisión no puede ser mayor al 100%")
     @Column(name = "commission_pct")
     private BigDecimal commissionPct;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Employee manager;
 
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private Job job;
 
+    // Constructors
+    public Employee() {}
+
+    public Employee(String firstName, String lastName, String email, LocalDateTime hireDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.hireDate = hireDate;
+    }
 
     // Getters y Setters
 

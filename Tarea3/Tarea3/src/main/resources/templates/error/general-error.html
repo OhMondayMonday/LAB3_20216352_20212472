@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base-layout :: head}">
+    <title>Error - Sistema de Gestión</title>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <div th:replace="~{layout/base-layout :: navbar}"></div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm text-center">
+                    <div class="card-body p-5">
+                        <div class="mb-4">
+                            <i class="fas fa-exclamation-triangle fa-4x text-warning"></i>
+                        </div>
+                        
+                        <h2 class="h3 mb-3 text-danger">¡Oops! Algo salió mal</h2>
+                        
+                        <div th:if="${error}" class="alert alert-danger text-start">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <span th:text="${error}">Error message</span>
+                        </div>
+                        
+                        <p class="text-muted mb-4">
+                            Parece que ha ocurrido un error inesperado. 
+                            Nuestro equipo ha sido notificado y está trabajando para solucionarlo.
+                        </p>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a th:href="@{/}" class="btn btn-primary">
+                                <i class="fas fa-home me-2"></i>Ir al Dashboard
+                            </a>
+                            <button onclick="history.back()" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Volver
+                            </button>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="text-start">
+                            <h6 class="text-muted mb-3">¿Qué puedes hacer?</h6>
+                            <ul class="list-unstyled text-muted">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Verifica que la URL sea correcta
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Intenta recargar la página
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Regresa al dashboard principal
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Contacta al administrador si el problema persiste
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Details (only in development) -->
+                <div th:if="${#strings.contains(#request.requestURL, 'localhost')}" class="card border-0 shadow-sm mt-4">
+                    <div class="card-header bg-dark text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-code me-2"></i>Detalles Técnicos (Desarrollo)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">
+                            <strong>Timestamp:</strong> <span th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm:ss')}"></span><br>
+                            <strong>Request URL:</strong> <span th:text="${#request.requestURL}"></span><br>
+                            <strong>User Agent:</strong> <span th:text="${#request.getHeader('User-Agent')}"></span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{layout/base-layout :: footer}"></div>
+
+    <!-- Scripts -->
+    <div th:replace="~{layout/base-layout :: scripts}"></div>
+</body>
+</html>

@@ -1,29 +1,22 @@
 package com.example.tarea3.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Embeddable
 public class JobHistoryId implements Serializable {
 
-    @Column(name = "employee_id")
     private Integer employeeId;
-
-    @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    public JobHistoryId() {
-    }
+    public JobHistoryId() {}
 
     public JobHistoryId(Integer employeeId, LocalDateTime startDate) {
         this.employeeId = employeeId;
         this.startDate = startDate;
     }
 
+    // Getters y Setters
     public Integer getEmployeeId() {
         return employeeId;
     }
@@ -43,14 +36,23 @@ public class JobHistoryId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof JobHistoryId that)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        JobHistoryId that = (JobHistoryId) o;
         return Objects.equals(employeeId, that.employeeId) &&
-                Objects.equals(startDate, that.startDate);
+               Objects.equals(startDate, that.startDate);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(employeeId, startDate);
+    }
+
+    @Override
+    public String toString() {
+        return "JobHistoryId{" +
+                "employeeId=" + employeeId +
+                ", startDate=" + startDate +
+                '}';
     }
 }
 

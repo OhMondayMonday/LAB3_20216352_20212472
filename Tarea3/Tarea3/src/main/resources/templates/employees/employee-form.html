@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base-layout :: head}">
+    <title th:text="${isEdit ? 'Editar Empleado' : 'Nuevo Empleado'} + ' - Sistema de Gestión'">Empleado - Sistema de Gestión</title>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <div th:replace="~{layout/base-layout :: navbar}"></div>
+    
+    <!-- Alerts -->
+    <div th:replace="~{layout/base-layout :: alerts}"></div>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h2 mb-0">
+                            <i th:class="${isEdit ? 'fas fa-user-edit' : 'fas fa-user-plus'} + ' me-2 text-primary'"></i>
+                            <span th:text="${isEdit ? 'Editar Empleado' : 'Nuevo Empleado'}">Nuevo Empleado</span>
+                        </h1>
+                        <p class="text-muted mb-0" th:text="${isEdit ? 'Modifica la información del empleado' : 'Registra un nuevo empleado en el sistema'}">
+                            Registra un nuevo empleado en el sistema
+                        </p>
+                    </div>
+                    <div>
+                        <a th:href="@{/employees}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Volver a Lista
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Form -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-user-circle me-2 text-primary"></i>
+                            Información del Empleado
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form th:action="${isEdit ? '/employees/update' : '/employees/save'}" 
+                              method="post" 
+                              th:object="${employee}"
+                              novalidate>
+                            
+                            <!-- Hidden ID for edit -->
+                            <input th:if="${isEdit}" type="hidden" th:field="*{employeeId}">
+                            
+                            <!-- Personal Information Section -->
+                            <div class="mb-4">
+                                <h6 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="fas fa-user me-2"></i>Información Personal
+                                </h6>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label required">
+                                            <i class="fas fa-user me-1"></i>Nombre
+                                        </label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="firstName" 
+                                               th:field="*{firstName}"
+                                               placeholder="Ingrese el nombre"
+                                               required>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese un nombre válido.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label required">
+                                            <i class="fas fa-user me-1"></i>Apellido
+                                        </label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="lastName" 
+                                               th:field="*{lastName}"
+                                               placeholder="Ingrese el apellido"
+                                               required>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese un apellido válido.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information Section -->
+                            <div class="mb-4">
+                                <h6 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="fas fa-envelope me-2"></i>Información de Contacto
+                                </h6>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label required">
+                                            <i class="fas fa-envelope me-1"></i>Email
+                                        </label>
+                                        <input type="email" 
+                                               class="form-control" 
+                                               id="email" 
+                                               th:field="*{email}"
+                                               placeholder="empleado@empresa.com"
+                                               required>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese un email válido.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="phoneNumber" class="form-label">
+                                            <i class="fas fa-phone me-1"></i>Teléfono
+                                        </label>
+                                        <input type="tel" 
+                                               class="form-control" 
+                                               id="phoneNumber" 
+                                               th:field="*{phoneNumber}"
+                                               placeholder="+1-234-567-8900">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Employment Information Section -->
+                            <div class="mb-4">
+                                <h6 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="fas fa-briefcase me-2"></i>Información Laboral
+                                </h6>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="hireDate" class="form-label required">
+                                            <i class="fas fa-calendar me-1"></i>Fecha de Contratación
+                                        </label>
+                                        <input type="datetime-local" 
+                                               class="form-control" 
+                                               id="hireDate" 
+                                               th:field="*{hireDate}"
+                                               required>
+                                        <div class="invalid-feedback">
+                                            Por favor seleccione una fecha de contratación.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="job" class="form-label">
+                                            <i class="fas fa-briefcase me-1"></i>Puesto de Trabajo
+                                        </label>
+                                        <select class="form-select" id="job" name="jobId">
+                                            <option value="">Seleccione un puesto</option>
+                                            <option th:each="job : ${jobs}" 
+                                                    th:value="${job.jobId}" 
+                                                    th:text="${job.jobTitle}"
+                                                    th:selected="${employee.job != null && employee.job.jobId == job.jobId}">
+                                                Puesto
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="department" class="form-label">
+                                            <i class="fas fa-building me-1"></i>Departamento
+                                        </label>
+                                        <select class="form-select" id="department" name="departmentId">
+                                            <option value="">Seleccione un departamento</option>
+                                            <option th:each="dept : ${departments}" 
+                                                    th:value="${dept.departmentId}" 
+                                                    th:text="${dept.departmentName}"
+                                                    th:selected="${employee.department != null && employee.department.departmentId == dept.departmentId}">
+                                                Departamento
+                                            </option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="manager" class="form-label">
+                                            <i class="fas fa-user-tie me-1"></i>Gerente
+                                        </label>
+                                        <select class="form-select" id="manager" name="managerId">
+                                            <option value="">Sin gerente asignado</option>
+                                            <option th:each="mgr : ${managers}" 
+                                                    th:value="${mgr.employeeId}" 
+                                                    th:text="${mgr.firstName + ' ' + mgr.lastName}"
+                                                    th:selected="${employee.manager != null && employee.manager.employeeId == mgr.employeeId}">
+                                                Gerente
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Compensation Information Section -->
+                            <div class="mb-4">
+                                <h6 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="fas fa-dollar-sign me-2"></i>Información Salarial
+                                </h6>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="salary" class="form-label">
+                                            <i class="fas fa-dollar-sign me-1"></i>Salario
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   id="salary" 
+                                                   th:field="*{salary}"
+                                                   placeholder="0.00"
+                                                   step="0.01"
+                                                   min="0">
+                                        </div>
+                                        <div class="form-text">Ingrese el salario mensual en dólares</div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="commissionPct" class="form-label">
+                                            <i class="fas fa-percentage me-1"></i>Comisión (%)
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   id="commissionPct" 
+                                                   th:field="*{commissionPct}"
+                                                   placeholder="0.00"
+                                                   step="0.01"
+                                                   min="0"
+                                                   max="100">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                        <div class="form-text">Porcentaje de comisión (opcional)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <a th:href="@{/employees}" class="btn btn-outline-secondary">
+                                                <i class="fas fa-times me-2"></i>Cancelar
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <button type="reset" class="btn btn-outline-warning me-2">
+                                                <i class="fas fa-undo me-2"></i>Limpiar
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i th:class="${isEdit ? 'fas fa-save' : 'fas fa-user-plus'} + ' me-2'"></i>
+                                                <span th:text="${isEdit ? 'Actualizar Empleado' : 'Crear Empleado'}">Crear Empleado</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{layout/base-layout :: footer}"></div>
+
+    <!-- Scripts -->
+    <div th:replace="~{layout/base-layout :: scripts}"></div>
+    
+    <script>
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        // Real-time email validation
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                this.setCustomValidity('Por favor ingrese un email válido');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // Phone number formatting
+        document.getElementById('phoneNumber').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length >= 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1-$2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{3})(\d+)/, '$1-$2');
+            }
+            this.value = value;
+        });
+    </script>
+
+    <style>
+        .required::after {
+            content: ' *';
+            color: #dc3545;
+        }
+        
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+        
+        .was-validated .form-control:valid,
+        .was-validated .form-select:valid {
+            border-color: #198754;
+        }
+        
+        .was-validated .form-control:invalid,
+        .was-validated .form-select:invalid {
+            border-color: #dc3545;
+        }
+    </style>
+</body>
+</html>
